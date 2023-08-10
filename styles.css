@@ -43,7 +43,7 @@ textarea {
     padding: .5rem;
     margin: 0 .5rem .5rem .5rem;
     overflow: auto;
-    max-height: 49.9rem;
+    max-height: calc(100vh - 9.5rem);
 }
 
 .rules-content {

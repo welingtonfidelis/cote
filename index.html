@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoTe</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    <header>
+      <img src="assets/cote-logo.png" alt="logo" srcset="" />
+      <h1>Convert Text</h1>
+    </header>
+
+    <main>
+      <div class="rules-container">
+        <div class="rules-content">
+          <span>Predefined Rules</span>
+
+          <div class="rule-item">
+            <input
+              type="checkbox"
+              name="upper-case"
+              id="upper-case"
+              onchange="handleCheckboxChange('upper-case')"
+            />
+            <label for="upper-case">Upper case</label>
+          </div>
+
+          <div class="rule-item">
+            <input
+              type="checkbox"
+              name="lower-case"
+              id="lower-case"
+              onchange="handleCheckboxChange('lower-case')"
+            />
+            <label for="lower-case">Lower case</label>
+          </div>
+        </div>
+
+        <div class="rules-content">
+          <span>Personalized Rules</span>
+
+          <div class="personalized-rule-item" id="personalized-rule-pattern">
+            <input type="text" id="personalized-from" placeholder="From" />
+            <span>-></span>
+            <input type="text" id="personalized-to" placeholder="To" />
+            <button
+              class="button-red"
+              id="remove-rule-button"
+              onclick="handlePersonalizeRemove(event)"
+              title="Delete Rule"
+            >
+              -
+            </button>
+          </div>
+
+          <button
+            class="button-blue"
+            id="add-rule-button"
+            onclick="handlePersonalizedAdd()"
+          >
+            Add Rule
+          </button>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label for="input-text">Input Text</label>
+        <textarea name="input-text" id="input-text" cols="30"></textarea>
+
+        <button class="button-blue" onclick="handleConvertText()">
+          Convert
+        </button>
+
+        <label for="output-text">Output Text</label>
+
+        <textarea
+          name="output-text"
+          id="output-text"
+          cols="30"
+          readonly
+        ></textarea>
+        <button
+          class="button-blue"
+          id="copy-output-button"
+          onclick="handleCopyOutputText()"
+        >
+          Copy Text
+        </button>
+      </div>
+    </main>
+  </body>
+</html>

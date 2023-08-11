@@ -41,9 +41,6 @@ const handleConvertText = () => {
   const toLowerCase = document.getElementById("lower-case").checked;
   const toUpperCase = document.getElementById("upper-case").checked;
 
-  if (toLowerCase) outputText = outputText.toLowerCase();
-  if (toUpperCase) outputText = outputText.toUpperCase();
-
   const textFrom = document.querySelectorAll("[id=personalized-from]");
   const textTo = document.querySelectorAll("[id=personalized-to]");
 
@@ -59,6 +56,9 @@ const handleConvertText = () => {
       outputText = outputText.replaceAll(from, to);
     }
   });
+
+  if (toLowerCase) outputText = outputText.toLowerCase();
+  if (toUpperCase) outputText = outputText.toUpperCase();
 
   localStorage.setItem(
     LOCAL_STORAGE_PREDEFINED_RULES,

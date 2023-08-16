@@ -1,6 +1,68 @@
 const LOCAL_STORAGE_PERSONALIZED_RULES = "cote-personalized-rules";
 const LOCAL_STORAGE_PREDEFINED_RULES = "cote-predefined-rules";
 
+let dragElement = null;
+
+function handleDragStart(e) {
+  this.classList.add("over-from");
+
+  dragElement = this;
+
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/html", this.innerHTML);
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+
+  e.dataTransfer.dropEffect = "move";
+
+  return false;
+}
+
+function handleDragEnter(e) {
+  if (dragElement != this) this.classList.add("over-to");
+}
+
+function handleDrop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation(); // stops the browser from redirecting.
+  }
+
+  if (dragElement != this) {
+    const [inptFromABef, inptToABef] = this.getElementsByTagName("input");
+    const [inptFromBBef, inptToBBef] = dragElement.getElementsByTagName("input");
+
+    dragElement.innerHTML = this.innerHTML;
+    this.innerHTML = e.dataTransfer.getData("text/html");
+
+    dragElement.getElementsByTagName("input")[0].value = inptFromABef.value;
+    dragElement.getElementsByTagName("input")[1].value = inptToABef.value;
+
+    this.getElementsByTagName("input")[0].value = inptFromBBef.value;
+    this.getElementsByTagName("input")[1].value = inptToBBef.value;
+  }
+
+  const items = document.querySelectorAll(".personalized-rule-item");
+  items.forEach(function (item) {
+    item.classList.remove("over-to");
+    item.classList.remove("over-from");
+  });
+
+  return false;
+}
+
+const addDragAndDropEventListener = (e) => {
+  e.addEventListener("dragstart", handleDragStart, false);
+  e.addEventListener("dragenter", handleDragEnter, false);
+  e.addEventListener("dragover", handleDragOver, false);
+  e.addEventListener("drop", handleDrop, false);
+
+  return e;
+};
+
 const randomString = (prefix) => {
   return Math.random()
     .toString(36)
@@ -23,9 +85,13 @@ const handlePersonalizedAdd = () => {
   const newId = randomString("input");
 
   clone.id = newId;
-  clone.style.display = "block";
+  clone.style.display = "flex";
 
   refClone.before(clone);
+
+  const newElement = document.getElementById(newId);
+  addDragAndDropEventListener(newElement);
+
   return newId;
 };
 
@@ -116,6 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
       inputTo.value = to;
     });
   } catch (error) {
-    console.debug("error: ", error);
+    console.error("error: ", error);
   }
 });

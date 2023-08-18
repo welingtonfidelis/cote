@@ -103,28 +103,31 @@ const handlePersonalizeRemove = (event) => {
 };
 
 const handleConvertText = () => {
-  let outputText = document.getElementById("input-text").value;
+  const inputTextElement = document.getElementById("input-text");
+  const outputTextElement = document.getElementById("output-text");
+  const outputTextCountElement = document.getElementById("output-text-count");
   const toLowerCase = document.getElementById("lower-case").checked;
   const toUpperCase = document.getElementById("upper-case").checked;
 
-  const textFrom = document.querySelectorAll("[id=personalized-from]");
-  const textTo = document.querySelectorAll("[id=personalized-to]");
+  const textFromElement = document.querySelectorAll("[id=personalized-from]");
+  const textToElement = document.querySelectorAll("[id=personalized-to]");
 
   const personalizedRules = [];
+  let textToConvert = inputTextElement.value;
 
-  textFrom.forEach((item, index) => {
+  textFromElement.forEach((item, index) => {
     const from = item.value;
-    const to = textTo[index].value ?? "";
+    const to = textToElement[index].value ?? "";
 
     if (from) {
       personalizedRules.push({ from, to });
 
-      outputText = outputText.replaceAll(from, to);
+      textToConvert = textToConvert.replaceAll(from, to);
     }
   });
 
-  if (toLowerCase) outputText = outputText.toLowerCase();
-  if (toUpperCase) outputText = outputText.toUpperCase();
+  if (toLowerCase) textToConvert = textToConvert.toLowerCase();
+  if (toUpperCase) textToConvert = textToConvert.toUpperCase();
 
   localStorage.setItem(
     LOCAL_STORAGE_PREDEFINED_RULES,
@@ -136,7 +139,8 @@ const handleConvertText = () => {
     JSON.stringify(personalizedRules)
   );
 
-  document.getElementById("output-text").textContent = outputText;
+  outputTextElement.textContent = textToConvert;
+  outputTextCountElement.textContent = textToConvert.length;
 };
 
 const handleCopyOutputText = () => {

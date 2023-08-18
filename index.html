@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoTe</title>
+    <link rel="icon" type="image/x-icon" href="/assets/cote-fav-icon.ico" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/x-icon" href="/assets/cote-fav-icon.ico">
     <script src="scripts.js"></script>
   </head>
   <body>
@@ -43,7 +43,7 @@
         <div class="rules-content">
           <span>Personalized Rules</span>
 
-          <div class="personalized-rule-item"  id="personalized-rule-pattern">
+          <div class="personalized-rule-item" id="personalized-rule-pattern">
             <span class="drag-drop-button" draggable="true"></span>
             <input type="text" id="personalized-from" placeholder="From" />
             <span>-></span>
@@ -69,21 +69,24 @@
       </div>
 
       <div class="input-container">
-        <label for="input-text">Input Text</label>
-        <textarea name="input-text" id="input-text" cols="30"></textarea>
+        <div class="output-text-container">
+          <label for="input-text">Input Text</label>
+          <textarea name="input-text" id="input-text"></textarea>
+        </div>
 
         <button class="button-blue" onclick="handleConvertText()">
           Convert
         </button>
 
-        <label for="output-text">Output Text</label>
-
-        <textarea
-          name="output-text"
-          id="output-text"
-          cols="30"
-          readonly
-        ></textarea>
+        <div class="output-text-container">
+          <label for="output-text">Output Text</label>
+          <textarea
+            name="output-text"
+            id="output-text"
+            readonly
+          ></textarea>
+          <span id="output-text-count">0</span>
+        </div>
         <button
           class="button-blue"
           id="copy-output-button"
